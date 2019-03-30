@@ -55,4 +55,15 @@ regressor.fit(X_train, y_train)
 #Predicting the Test set Results
 y_pred = regressor.predict(X_test)
 
+#Building the optimal model using Backward Elimination
+import statsmodels.formula.api as sm
+#since statsmodels does not take into account the constant for the multiple lin reg equation
+#It will need to be added manually beforehand
+X = np.append(np.ones((50,1)).astype(int), values = X, axis = 1)
+
+
+
+
+
+
 
