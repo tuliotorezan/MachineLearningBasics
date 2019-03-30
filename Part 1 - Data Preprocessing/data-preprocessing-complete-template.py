@@ -23,16 +23,13 @@ X[:,1:3] = imputer.transform(X[:,1:3])
 
 
 #encoding categorical data
-from sklearn.preprocessing import LabelEncoder, OneHotEncoder
+from sklearn.preprocessing import  OneHotEncoder
+from sklearn.compose import ColumnTransformer
+ct = ColumnTransformer([('encoder', OneHotEncoder(), [0])], remainder='passthrough')
+X = np.array(ct.fit_transform(X), dtype=np.float)
 
-labelencoder_X = LabelEncoder()
-X[:,0] = labelencoder_X.fit_transform(X[:,0])
-#splitting 1 coluna em varias "dummy variables" pro pc entender que nao há relação numérica entre elas
-onehotencoder = OneHotEncoder(categorical_features = [0])
-X = onehotencoder.fit_transform(X).toarray()
-
-
-
+#encoding categorical data
+from sklearn.preprocessing import LabelEncoder
 #como esse é o resultado, nao precisa de dividir em varias colunas
 labelencoder_Y = LabelEncoder()
 Y = labelencoder_Y.fit_transform(Y)
