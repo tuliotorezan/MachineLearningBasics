@@ -12,17 +12,24 @@
 # Part 1 - Building the CNN
 
 import tensorflow as tf
-sess = tf.Session(config=tf.ConfigProto(log_device_placement=True))
+sess = tf.compat.v1.Session(config=tf.compat.v1.ConfigProto(log_device_placement=True))
+from tensorflow.keras import layers
+from tensorflow.keras import models
+from tensorflow.keras.models import Sequential
+from tensorflow.keras.layers import Convolution2D
+from tensorflow.keras.layers import MaxPooling2D
+from tensorflow.keras.layers import Flatten
+from tensorflow.keras.layers import Dense
 
 # Importing the Keras libraries and packages
-from keras.models import Sequential
-from keras.layers import Convolution2D
-from keras.layers import MaxPooling2D
-from keras.layers import Flatten
-from keras.layers import Dense
+#from keras.models import Sequential
+#from keras.layers import Convolution2D
+#from keras.layers import MaxPooling2D
+#from keras.layers import Flatten
+#from keras.layers import Dense
 
 # Initialising the CNN
-classifier = Sequential()
+classifier = tf.keras.Sequential()
 
 # Step 1 - Convolution
 classifier.add(Convolution2D(32, 3, input_shape = (64, 64, 3), activation = 'relu'))
@@ -34,6 +41,8 @@ classifier.add(MaxPooling2D(pool_size = (2, 2)))
 classifier.add(Convolution2D(32, 3, activation = 'relu'))
 classifier.add(MaxPooling2D(pool_size = (2, 2)))
 
+
+classifier.add(Convolution2D(32, 3, activation = 'relu'))
 # Step 3 - Flattening
 classifier.add(Flatten())
 
@@ -46,7 +55,7 @@ classifier.compile(optimizer = 'adam', loss = 'binary_crossentropy', metrics = [
 
 # Part 2 - Fitting the CNN to the images
 
-from keras.preprocessing.image import ImageDataGenerator
+from tensorflow.keras.preprocessing.image import ImageDataGenerator
 
 train_datagen = ImageDataGenerator(rescale = 1./255,
                                    shear_range = 0.2,
@@ -67,6 +76,6 @@ test_set = test_datagen.flow_from_directory('dataset/test_set',
 
 classifier.fit_generator(training_set,
                          steps_per_epoch = 8000,
-                         epochs = 50,
+                         epochs = 20,
                          validation_data = test_set,
                          validation_steps = 2000)

@@ -1,0 +1,15 @@
+
+https://msguides.com/microsoft-software-products/2-ways-activate-windows-10-free-without-software.html
+
+https://www.tensorflow.org/tutorials/keras/basic_classification
+http://iamtrask.github.io/2015/07/27/python-network-part2/
+http://neuralnetworksanddeeplearning.com/chap2
+https://pdfs.semanticscholar.org/450c/a19932fcef1ca6d0442cbf52fec38fb9d1e5.pdf
+http://scs.ryerson.ca/~aharley/vis/conv/flat.html
+https://cs.nju.edu.cn/wujx/publication.html
+https://adeshpande3.github.io/The-9-Deep-Learning-Papers-You-Need-To-Know-About.html
+https://keras.io/preprocessing/image/
+https://www.tensorflow.org/api_docs
+
+https://www.tensorflow.org/tutorials/keras/overfit_and_underfit
+https://www.tensorflow.org/tutorials/keras/save_and_restore_models
