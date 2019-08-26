@@ -6,7 +6,9 @@ Layer types:
 
 	Embedding
 
-	GlobalAveragePooling1D
+	GlobalAveragePooling2D
+
+	Dropout -> randomly dropping out nodes during training to avoid overfitting
 
 important observations:
 
