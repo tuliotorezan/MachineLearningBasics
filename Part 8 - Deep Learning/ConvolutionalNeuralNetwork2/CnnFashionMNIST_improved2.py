@@ -44,22 +44,33 @@ test_images = test_images.reshape(10000, 28, 28, 1)
 model = tf.keras.Sequential()
 
 model.add(tf.keras.layers.Conv2D(filters=32, kernel_size=3, padding='same', activation='relu', input_shape=(28,28,1)))
+model.add(tf.keras.layers.Activation("relu"))
+model.add(tf.keras.layers.BatchNormalization(axis=-1)) #-1 for chanels last +1 if using channels first
+model.add(tf.keras.layers.Conv2D(filters=32, kernel_size=3, padding='same', activation='relu', input_shape=(28,28,1)))
+model.add(tf.keras.layers.Activation("relu"))
+model.add(tf.keras.layers.BatchNormalization(axis=-1)) #-1 for chanels last +1 if using channels first
 model.add(tf.keras.layers.MaxPooling2D(pool_size=(2, 2)))
-model.add(tf.keras.layers.Dropout(0.3))
+model.add(tf.keras.layers.Dropout(0.25))
 
-#Note that I am using 32 filtersn in the first convolutional layer and then 64 on the second one
+#Note that I was using 32 filtersn in the first convolutional layer and then 64 on the second one
 #I noticed that using 64 1st and 32 2nd gets worst results
-#while using 64 1st and 128 2nd gets similar results but takes a bit longer 
+#while using 64 1st and 128 2nd gets similar results but takes a bit longer
 
+model.add(tf.keras.layers.Conv2D(filters=64, kernel_size=3, padding='same', activation='relu', input_shape=(28,28,1)))
+model.add(tf.keras.layers.Activation("relu"))
+model.add(tf.keras.layers.BatchNormalization(axis=-1)) #-1 for chanels last +1 if using channels first
 model.add(tf.keras.layers.Conv2D(filters=64, kernel_size=3, padding='same', activation='relu'))
+model.add(tf.keras.layers.Activation("relu"))
+model.add(tf.keras.layers.BatchNormalization(axis=-1)) #-1 for chanels last +1 if using channels first
 model.add(tf.keras.layers.MaxPooling2D(pool_size=2))
-model.add(tf.keras.layers.Dropout(0.3))
+model.add(tf.keras.layers.Dropout(0.25))
 
 model.add(tf.keras.layers.Flatten())
-model.add(tf.keras.layers.Dense(128, kernel_regularizer=keras.regularizers.l2(0.001),
+model.add(tf.keras.layers.Dense(256, kernel_regularizer=keras.regularizers.l2(0.001),
                              activation=tf.nn.relu))
-model.add(tf.keras.layers.Dense(128, kernel_regularizer=keras.regularizers.l2(0.001),
+model.add(tf.keras.layers.Dense(512, kernel_regularizer=keras.regularizers.l2(0.001),
                              activation=tf.nn.relu))
+model.add(tf.keras.layers.BatchNormalization())
 model.add(tf.keras.layers.Dropout(0.5))
 model.add(tf.keras.layers.Dense(10,
                              activation=tf.nn.softmax))
@@ -76,7 +87,7 @@ model.compile(optimizer='adam',
 model.fit(train_images,
           train_labels,
           batch_size=128,
-          epochs=25,
+          epochs=50,
           validation_data=(test_images, test_labels),
           verbose=1)
 
@@ -84,5 +95,7 @@ model.fit(train_images,
 test_loss, test_acc = model.evaluate(test_images, test_labels)
 
 print('Test accuracy:', test_acc)
+
+
 
 
